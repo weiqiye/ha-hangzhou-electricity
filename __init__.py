@@ -17,6 +17,9 @@ PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """设置配置项。"""
+    _LOGGER.warning("杭州峰谷电价集成加载中... version=1.1.5")
+    _LOGGER.warning("配置数据: %s", entry.data)
+    _LOGGER.warning("配置选项: %s", entry.options)
     hass.data.setdefault(DOMAIN, {})
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))

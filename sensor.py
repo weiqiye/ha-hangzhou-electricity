@@ -153,10 +153,10 @@ async def async_setup_entry(
     if initial_yearly_energy > 0:
         stored["yearly_energy"] = initial_yearly_energy
         await store.async_save(stored)
-        _LOGGER.info("初始用电量已设置: %s kWh", initial_yearly_energy)
+        _LOGGER.warning("初始用电量已设置: %s kWh", initial_yearly_energy)
     else:
         _LOGGER.warning("初始用电量为 0，未覆盖存储值。当前存储 yearly_energy=%s", stored.get("yearly_energy", "不存在"))
-    _LOGGER.info("配置合并结果: tier=%s, initial_yearly_energy=%s, energy_sensor=%s", tier, initial_yearly_energy, energy_sensor)
+    _LOGGER.warning("配置合并结果: tier=%s, initial_yearly_energy=%s, energy_sensor=%s", tier, initial_yearly_energy, energy_sensor)
 
     coordinator = HangzhouElectricityCoordinator(
         hass, store, stored, peak_start, peak_end, tier, prices, energy_sensor, auto_reset
@@ -267,10 +267,10 @@ class HangzhouElectricityCoordinator:
     def get_current_tier(self) -> str:
         """获取当前阶梯。"""
         if self._tier != TIER_AUTO:
-            _LOGGER.info("阶梯为手动设置: %s", self._tier)
+            _LOGGER.warning("阶梯为手动设置: %s", self._tier)
             return self._tier
         # 自动：根据本年度累计用电量判断
-        _LOGGER.info("自动判断阶梯: yearly_energy=%s, tier1_limit=%s, tier2_limit=%s", self._yearly_energy, TIER_1_LIMIT, TIER_2_LIMIT)
+        _LOGGER.warning("自动判断阶梯: yearly_energy=%s, tier1_limit=%s, tier2_limit=%s", self._yearly_energy, TIER_1_LIMIT, TIER_2_LIMIT)
         if self._yearly_energy <= TIER_1_LIMIT:
             return TIER_1
         elif self._yearly_energy <= TIER_2_LIMIT:
