@@ -36,7 +36,8 @@
           "tier3_valley_price": "Tier 3 valley price (CNY/kWh)",
           "energy_sensor": "Energy source sensor (optional, for peak/valley statistics)",
           "auto_reset": "Auto reset yearly energy on Jan 1st",
-          "initial_yearly_energy": "Current yearly usage (kWh, initial annual total when tier is 'auto')"
+          "initial_yearly_energy": "Current yearly usage (kWh, initial annual total when tier is 'auto')",
+          "debug_log": "Debug logging"
         }
       }
     },

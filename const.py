@@ -69,12 +69,14 @@ CONF_TIER3_VALLEY = "tier3_valley_price"
 CONF_ENERGY_SENSOR = "energy_sensor"
 CONF_AUTO_RESET = "auto_reset"
 CONF_INITIAL_YEARLY_ENERGY = "initial_yearly_energy"
+CONF_DEBUG_LOG = "debug_log"
 
 # 默认值
 DEFAULT_TIER = TIER_1
 DEFAULT_ENERGY_SENSOR = ""
 DEFAULT_AUTO_RESET = True
 DEFAULT_INITIAL_YEARLY_ENERGY = 0.0
+DEFAULT_DEBUG_LOG = False
 
 # 货币单位
 CURRENCY_CNY = "CNY"

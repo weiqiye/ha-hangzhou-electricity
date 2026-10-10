@@ -17,6 +17,7 @@ from homeassistant.helpers import selector
 
 from .const import (
     CONF_AUTO_RESET,
+    CONF_DEBUG_LOG,
     CONF_ENERGY_SENSOR,
     CONF_INITIAL_YEARLY_ENERGY,
     CONF_PEAK_END,
@@ -29,6 +30,7 @@ from .const import (
     CONF_TIER3_PEAK,
     CONF_TIER3_VALLEY,
     DEFAULT_AUTO_RESET,
+    DEFAULT_DEBUG_LOG,
     DEFAULT_ENERGY_SENSOR,
     DEFAULT_INITIAL_YEARLY_ENERGY,
     DEFAULT_PEAK_END,
@@ -172,6 +174,7 @@ class HangzhouElectricityOptionsFlow(OptionsFlow):
             CONF_INITIAL_YEARLY_ENERGY,
             data.get(CONF_INITIAL_YEARLY_ENERGY, DEFAULT_INITIAL_YEARLY_ENERGY),
         )
+        debug_log = options.get(CONF_DEBUG_LOG, data.get(CONF_DEBUG_LOG, DEFAULT_DEBUG_LOG))
 
         return self.async_show_form(
             step_id="init",
@@ -242,6 +245,7 @@ class HangzhouElectricityOptionsFlow(OptionsFlow):
                             mode=selector.NumberSelectorMode.BOX,
                         )
                     ),
+                    vol.Required(CONF_DEBUG_LOG, default=debug_log): selector.BooleanSelector(),
                 }
             ),
             errors=errors,

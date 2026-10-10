@@ -36,7 +36,8 @@
           "tier3_valley_price": "第三档 谷电价（元/kWh）",
           "energy_sensor": "用电量源传感器（可选，用于峰谷电量统计）",
           "auto_reset": "每年1月1日自动重置年度累计用电量",
-          "initial_yearly_energy": "当前已用电量（kWh，阶梯选'自动'时作为年度累计初始值）"
+          "initial_yearly_energy": "当前已用电量（kWh，阶梯选'自动'时作为年度累计初始值）",
+          "debug_log": "调试日志"
         }
       }
     },

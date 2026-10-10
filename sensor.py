@@ -22,6 +22,7 @@ from homeassistant.helpers.typing import StateType
 
 from .const import (
     CONF_AUTO_RESET,
+    CONF_DEBUG_LOG,
     CONF_ENERGY_SENSOR,
     CONF_INITIAL_YEARLY_ENERGY,
     CONF_PEAK_END,
@@ -34,6 +35,7 @@ from .const import (
     CONF_TIER3_PEAK,
     CONF_TIER3_VALLEY,
     DEFAULT_AUTO_RESET,
+    DEFAULT_DEBUG_LOG,
     DEFAULT_ENERGY_SENSOR,
     DEFAULT_INITIAL_YEARLY_ENERGY,
     DEFAULT_PEAK_END,
@@ -126,6 +128,7 @@ async def async_setup_entry(
     tier = merged.get(CONF_TIER, DEFAULT_TIER)
     energy_sensor = merged.get(CONF_ENERGY_SENSOR, DEFAULT_ENERGY_SENSOR)
     auto_reset = merged.get(CONF_AUTO_RESET, DEFAULT_AUTO_RESET)
+    debug_log = merged.get(CONF_DEBUG_LOG, DEFAULT_DEBUG_LOG)
     initial_yearly_energy = float(
         merged.get(CONF_INITIAL_YEARLY_ENERGY, DEFAULT_INITIAL_YEARLY_ENERGY)
     )
@@ -153,13 +156,15 @@ async def async_setup_entry(
     if initial_yearly_energy > 0:
         stored["yearly_energy"] = initial_yearly_energy
         await store.async_save(stored)
-        _LOGGER.warning("初始用电量已设置: %s kWh", initial_yearly_energy)
-    else:
+        if debug_log:
+            _LOGGER.warning("初始用电量已设置: %s kWh", initial_yearly_energy)
+    elif debug_log:
         _LOGGER.warning("初始用电量为 0，未覆盖存储值。当前存储 yearly_energy=%s", stored.get("yearly_energy", "不存在"))
-    _LOGGER.warning("配置合并结果: tier=%s, initial_yearly_energy=%s, energy_sensor=%s", tier, initial_yearly_energy, energy_sensor)
+    if debug_log:
+        _LOGGER.warning("配置合并结果: tier=%s, initial_yearly_energy=%s, energy_sensor=%s", tier, initial_yearly_energy, energy_sensor)
 
     coordinator = HangzhouElectricityCoordinator(
-        hass, store, stored, peak_start, peak_end, tier, prices, energy_sensor, auto_reset
+        hass, store, stored, peak_start, peak_end, tier, prices, energy_sensor, auto_reset, debug_log
     )
 
     hass.data.setdefault(DOMAIN, {})
@@ -207,6 +212,7 @@ class HangzhouElectricityCoordinator:
         prices: dict[str, dict[str, float]],
         energy_sensor: str,
         auto_reset: bool,
+        debug_log: bool = False,
     ) -> None:
         """初始化协调器。"""
         self.hass = hass
@@ -218,6 +224,7 @@ class HangzhouElectricityCoordinator:
         self._prices = prices
         self._energy_sensor = energy_sensor
         self._auto_reset = auto_reset
+        self._debug_log = debug_log
 
         # 峰谷电量累计
         self._peak_energy = float(stored.get("peak_energy", 0.0))
@@ -267,10 +274,12 @@ class HangzhouElectricityCoordinator:
     def get_current_tier(self) -> str:
         """获取当前阶梯。"""
         if self._tier != TIER_AUTO:
-            _LOGGER.warning("阶梯为手动设置: %s", self._tier)
+            if self._debug_log:
+                _LOGGER.warning("阶梯为手动设置: %s", self._tier)
             return self._tier
         # 自动：根据本年度累计用电量判断
-        _LOGGER.warning("自动判断阶梯: yearly_energy=%s, tier1_limit=%s, tier2_limit=%s", self._yearly_energy, TIER_1_LIMIT, TIER_2_LIMIT)
+        if self._debug_log:
+            _LOGGER.warning("自动判断阶梯: yearly_energy=%s, tier1_limit=%s, tier2_limit=%s", self._yearly_energy, TIER_1_LIMIT, TIER_2_LIMIT)
         if self._yearly_energy <= TIER_1_LIMIT:
             return TIER_1
         elif self._yearly_energy <= TIER_2_LIMIT:
