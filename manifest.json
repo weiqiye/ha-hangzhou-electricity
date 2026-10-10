@@ -4,9 +4,9 @@
   "codeowners": [],
   "config_flow": true,
   "icon": "mdi:currency-cny",
-  "documentation": "https://github.com/custom-components/hangzhou_electricity",
+  "documentation": "https://github.com/weiqiye/ha-hangzhou-electricity",
   "iot_class": "calculated",
-  "issue_tracker": "https://github.com/custom-components/hangzhou_electricity/issues",
+  "issue_tracker": "https://github.com/weiqiye/ha-hangzhou-electricity/issues",
   "requirements": [],
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
