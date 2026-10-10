@@ -1,7 +1,7 @@
 {
   "domain": "hangzhou_electricity",
   "name": "杭州峰谷电价",
-  "codeowners": [],
+  "codeowners": ["@weiqiye"],
   "config_flow": true,
   "icon": "mdi:currency-cny",
   "documentation": "https://github.com/weiqiye/ha-hangzhou-electricity",
