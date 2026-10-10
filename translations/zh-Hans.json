@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "杭州峰谷电价设置",
+        "description": "配置杭州居民峰谷电价的基本参数。峰时段外的时间默认为谷时段。",
+        "data": {
+          "peak_start": "峰时段开始（小时，24小时制）",
+          "peak_end": "峰时段结束（小时，24小时制）",
+          "tier": "用电阶梯",
+          "initial_yearly_energy": "当前已用电量（kWh，阶梯选'自动'时用于初始年度累计）"
+        }
+      }
+    },
+    "error": {
+      "peak_hours_invalid": "峰时段开始和结束时间不能相同"
+    },
+    "abort": {
+      "single_instance_allowed": "已存在一个杭州峰谷电价配置"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "杭州峰谷电价选项",
+        "description": "调整峰谷时段、阶梯电价以及电量统计参数。\n\n默认电价（元/kWh）：\n- 第一档：峰 0.568 / 谷 0.288\n- 第二档：峰 0.618 / 谷 0.338\n- 第三档：峰 0.868 / 谷 0.588",
+        "data": {
+          "peak_start": "峰时段开始（小时）",
+          "peak_end": "峰时段结束（小时）",
+          "tier": "用电阶梯",
+          "tier1_peak_price": "第一档 峰电价（元/kWh）",
+          "tier1_valley_price": "第一档 谷电价（元/kWh）",
+          "tier2_peak_price": "第二档 峰电价（元/kWh）",
+          "tier2_valley_price": "第二档 谷电价（元/kWh）",
+          "tier3_peak_price": "第三档 峰电价（元/kWh）",
+          "tier3_valley_price": "第三档 谷电价（元/kWh）",
+          "energy_sensor": "用电量源传感器（可选，用于峰谷电量统计）",
+          "auto_reset": "每年1月1日自动重置年度累计用电量",
+          "initial_yearly_energy": "当前已用电量（kWh，阶梯选'自动'时作为年度累计初始值）"
+        }
+      }
+    },
+    "error": {
+      "peak_hours_invalid": "峰时段开始和结束时间不能相同"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "current_price": {
+        "name": "当前电价"
+      },
+      "current_tariff": {
+        "name": "当前费率"
+      },
+      "current_tier": {
+        "name": "当前阶梯"
+      },
+      "peak_energy": {
+        "name": "峰电量"
+      },
+      "valley_energy": {
+        "name": "谷电量"
+      },
+      "yearly_energy": {
+        "name": "本年度累计用电量"
+      }
+    }
+  }
+}

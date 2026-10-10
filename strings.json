@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hangzhou Peak/Valley Electricity",
+        "description": "Configure Hangzhou residential peak/valley electricity tariff. Hours outside the peak period are automatically valley period.",
+        "data": {
+          "peak_start": "Peak period start hour (24h)",
+          "peak_end": "Peak period end hour (24h)",
+          "tier": "Electricity tier",
+          "initial_yearly_energy": "Current yearly usage (kWh, used as initial annual total when tier is 'auto')"
+        }
+      }
+    },
+    "error": {
+      "peak_hours_invalid": "Peak start and end hours cannot be the same"
+    },
+    "abort": {
+      "single_instance_allowed": "A Hangzhou electricity configuration already exists"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hangzhou Electricity Options",
+        "description": "Adjust peak/valley hours, tier prices, and energy statistics.\n\nDefault prices (CNY/kWh):\n- Tier 1: Peak 0.568 / Valley 0.288\n- Tier 2: Peak 0.618 / Valley 0.338\n- Tier 3: Peak 0.868 / Valley 0.588",
+        "data": {
+          "peak_start": "Peak period start hour",
+          "peak_end": "Peak period end hour",
+          "tier": "Electricity tier",
+          "tier1_peak_price": "Tier 1 peak price (CNY/kWh)",
+          "tier1_valley_price": "Tier 1 valley price (CNY/kWh)",
+          "tier2_peak_price": "Tier 2 peak price (CNY/kWh)",
+          "tier2_valley_price": "Tier 2 valley price (CNY/kWh)",
+          "tier3_peak_price": "Tier 3 peak price (CNY/kWh)",
+          "tier3_valley_price": "Tier 3 valley price (CNY/kWh)",
+          "energy_sensor": "Energy source sensor (optional, for peak/valley statistics)",
+          "auto_reset": "Auto reset yearly energy on Jan 1st",
+          "initial_yearly_energy": "Current yearly usage (kWh, initial annual total when tier is 'auto')"
+        }
+      }
+    },
+    "error": {
+      "peak_hours_invalid": "Peak start and end hours cannot be the same"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "current_price": {
+        "name": "Current Price"
+      },
+      "current_tariff": {
+        "name": "Current Tariff"
+      },
+      "current_tier": {
+        "name": "Current Tier"
+      },
+      "peak_energy": {
+        "name": "Peak Energy"
+      },
+      "valley_energy": {
+        "name": "Valley Energy"
+      },
+      "yearly_energy": {
+        "name": "Yearly Energy"
+      }
+    }
+  }
+}
