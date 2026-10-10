@@ -149,8 +149,8 @@ async def async_setup_entry(
     store = Store(hass, STORAGE_VERSION, STORAGE_KEY)
     stored = await store.async_load() or {}
 
-    # 若存储中无年度用电量记录，使用配置中的初始值
-    if "yearly_energy" not in stored and initial_yearly_energy > 0:
+    # 使用配置中的初始值覆盖存储中的年度用电量
+    if initial_yearly_energy > 0:
         stored["yearly_energy"] = initial_yearly_energy
         await store.async_save(stored)
 
@@ -165,6 +165,7 @@ async def async_setup_entry(
         HangzhouElectricityPriceSensor(coordinator, PRICE_SENSOR),
         HangzhouElectricityTariffSensor(coordinator, TARIFF_SENSOR),
         HangzhouElectricityTierSensor(coordinator, TIER_SENSOR),
+        HangzhouElectricityYearlyEnergySensor(coordinator, YEARLY_ENERGY_SENSOR),
     ]
 
     if energy_sensor:
@@ -172,7 +173,6 @@ async def async_setup_entry(
             [
                 HangzhouElectricityEnergySensor(coordinator, PEAK_ENERGY_SENSOR, TARIFF_PEAK),
                 HangzhouElectricityEnergySensor(coordinator, VALLEY_ENERGY_SENSOR, TARIFF_VALLEY),
-                HangzhouElectricityYearlyEnergySensor(coordinator, YEARLY_ENERGY_SENSOR),
             ]
         )
 

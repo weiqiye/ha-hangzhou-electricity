@@ -1,6 +1,6 @@
 # 杭州峰谷电价 (hangzhou_electricity)
 
-![版本](https://img.shields.io/badge/版本-v1.1.1-blue)
+![版本](https://img.shields.io/badge/版本-v1.1.4-blue)
 ![HA](https://img.shields.io/badge/Home_Assistant-2025.1%2B-41bdf5)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
