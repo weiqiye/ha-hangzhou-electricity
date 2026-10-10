@@ -111,7 +111,7 @@ class HangzhouElectricityConfigFlow(ConfigFlow, domain=DOMAIN):
                             mode=selector.SelectSelectorMode.DROPDOWN,
                         )
                     ),
-                    vol.Optional(
+                    vol.Required(
                         CONF_INITIAL_YEARLY_ENERGY, default=DEFAULT_INITIAL_YEARLY_ENERGY
                     ): selector.NumberSelector(
                         selector.NumberSelectorConfig(
@@ -233,7 +233,7 @@ class HangzhouElectricityOptionsFlow(OptionsFlow):
                         )
                     ),
                     vol.Required(CONF_AUTO_RESET, default=auto_reset): selector.BooleanSelector(),
-                    vol.Optional(
+                    vol.Required(
                         CONF_INITIAL_YEARLY_ENERGY, default=initial_yearly_energy
                     ): selector.NumberSelector(
                         selector.NumberSelectorConfig(
